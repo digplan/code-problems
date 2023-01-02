@@ -218,3 +218,164 @@ const rotateArray = (nums, k) => {
     return res
 }
 console.log(rotateArray([1, 2, 3, 4, 5, 6, 7], 3))
+
+/*
+14 Radix sort
+Radix sort is an efficient sorting algorithm that works by sorting the elements of an array based on their individual digits. It is a non-comparative sorting algorithm, meaning that it does not compare the values of the elements being sorted. Instead, it works by sorting the elements based on the digits of their binary representation.
+This implementation of radix sort works by iterating over each digit of the numbers in the input array, starting with the least significant digit. It uses an array of "buckets" to sort the numbers based on their digits. The numbers are then concatenated back into the original array in their sorted order.
+
+The time complexity of radix sort is O(nk) where n is the number of elements in the array and k is the number of digits in the largest element. The space complexity is O(n + k).
+*/
+function radixSort(arr) {
+  const maxDigits = getMaxDigits(arr);
+  for (let i = 0; i < maxDigits; i++) {
+    const buckets = Array.from({ length: 10 }, () => []);
+    for (const num of arr) {
+      buckets[getDigit(num, i)].push(num);
+    }
+    arr = [].concat(...buckets);
+  }
+  return arr;
+}
+
+function getMaxDigits(nums) {
+  let maxDigits = 0;
+  for (const num of nums) {
+    maxDigits = Math.max(maxDigits, getNumDigits(num));
+  }
+  return maxDigits;
+}
+
+function getNumDigits(num) {
+  if (num === 0) return 1;
+  return Math.floor(Math.log10(num)) + 1;
+}
+
+function getDigit(num, place) {
+  return Math.floor(Math.abs(num) / Math.pow(10, place)) % 10;
+}
+
+/* 15 Regular Expression 
+Implement a regular expression function that matches * and .
+*/
+function regex (s, p) {
+    let si = 0
+    for(let i=0; i<p.length; i++) {
+        if(p[i] === '*') {
+            let la = p[i+1]
+            while(s[si] && (s[si] !== la))
+              si++
+        } else if(p[i] === '.' || p[i] === s[si]) {
+            si++
+        } else {
+            return false
+        }
+    }
+    if(si < s.length) return false
+    return true
+}
+console.log(regex('aab', 'c*a*b'))
+
+/* 16 isPalindrome */
+function isPalindrome(str) {
+    // Calculate the middle index of the string
+    const mid = Math.floor(str.length / 2)
+
+    // Split the string into two halves
+    const firstHalf = str.slice(0, mid)
+    , secondHalf = str.slice(mid)
+ 
+    // Compare the characters in each half
+    for (let i = 0; i < mid; i++) {
+        if (firstHalf[i] !== secondHalf[secondHalf.length - 1 - i])
+            return false
+    }
+
+    return true
+}
+
+/* 17 Search - Find shortest path */
+function shortestPath(grid) {
+
+    const START = [0, 0], END = [grid.length - 1, grid[0].length - 1]
+    const queue = [START], path = [], visited = []
+
+    while(queue.length) {
+        const position = queue.pop() // Depth-first search (stack LIFO)
+        // const position = queue.unshift() // Breadth-first search (queue FIFO)
+
+        if(visited.includes(position)) continue
+        if(grid[position[0], position[1]] === END) return path
+
+        [position - 7, position + 7, position + 1, position -1].forEach(n => {
+            if(n > -1 && n <= 36 && !visited.includes(n))
+                queue.push(n)
+        })
+    }
+}
+console.log(shortestPath([
+    ['START', '#', '#', '#', '#', '#', '#'],
+    ['#', '.', '.', '.', '.', '.', '#'],
+    ['#', '.', '#', '#', '#', '.', '#'],
+    ['#', '.', '#', '.', '#', '.', '#'],
+    ['#', '.', '#', '.', '#', '.', '#'],
+    ['#', '.', '.', '.', '.', '.', 'END']
+]))
+
+/* 18 Convert Integer to Roman numeral */
+function integerToRoman(n) {
+    const ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+    const tens = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    const hundreds = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+    const thousands = ["", "M", "MM", "MMM"]
+
+    let solution = String(thousands[n / 1000])
+    solution += hundreds[(n % 1000) / 100] 
+    solution += tens[(n % 100) / 10]
+    solution += ones[n % 10]
+    return solution
+}
+
+/* 19 Convert Roman to Integer */
+function romanToInteger(str) {
+        const hash = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 }
+        let ans = 0, cur = 0, prev = 0
+        for (const j = str.length - 1; j >= 0; j--) {
+            cur = hash[str[j]]
+            cur < prev ? ans -= cur : ans += cur
+            prev = cur
+        }
+        return ans
+}
+
+/* 20 Three-sum Return unique triplets that sum to 0 
+Two pointers approach
+*/
+function threeSum(nums) {
+    // Sort the array
+    nums.sort((a, b) => a - b)
+    const result = []
+
+    // Iterate
+    for (let i = 0; i < nums.length - 2; i++) {
+
+        if(i !== 0 && (nums[i] === nums[i - 1])) continue
+
+        let j = i + 1, 
+          k = nums.length - 1
+
+        while (j < k) {
+            const sum = nums[i] + nums[j] + nums[k]
+            if (sum === 0) {
+                result.push([nums[i], nums[j], nums[k]])
+                while (nums[j] === nums[j + 1]) j++
+                while (nums[k] === nums[k - 1]) k--
+                j++
+                k--
+                continue
+            }
+            if(sum < 0) j++; else k--
+        }
+    }
+    return result
+}
