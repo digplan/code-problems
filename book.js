@@ -294,20 +294,21 @@ function isPalindrome(str) {
     return true
 }
 
-/* 17 Search - Find shortest path */
+/* 17 Search - Find shortest path BFS DFS */
 function shortestPath(grid) {
 
     const START = [0, 0], END = [grid.length - 1, grid[0].length - 1]
     const queue = [START], path = [], visited = []
 
     while(queue.length) {
-        const position = queue.pop() // Depth-first search (stack LIFO)
+        const position = queue.pop() // [x, y] Depth-first search (stack LIFO)
         // const position = queue.unshift() // Breadth-first search (queue FIFO)
 
         if(visited.includes(position)) continue
         if(grid[position[0], position[1]] === END) return path
 
-        [position - 7, position + 7, position + 1, position -1].forEach(n => {
+        [[position[0] + 1, position[1]], [position[0] - 1, position[1]], [position[0], position[1] + 1], [position[0], position[1] - 1]
+        ].forEach(n => {
             if(n > -1 && n <= 36 && !visited.includes(n))
                 queue.push(n)
         })
@@ -418,4 +419,20 @@ function minDistance(word1, word2) {
         }
     }
     return dp[m][n]
+}
+
+/* 22 Stock profits 
+You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+
+On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
+
+Find and return the maximum profit you can achieve.
+*/
+function profit(prices) {
+    let profit = 0
+    for (let i = 0; i < prices.length; i++) {
+        if (prices[i] > prices[i - 1])
+            profit += prices[i] - prices[i - 1]
+    }
+    return profit
 }
