@@ -1,3 +1,0 @@
-const sortKSortedArray = (arr, k) => {
-    
-}

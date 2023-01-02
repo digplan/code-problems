@@ -1,5 +1,4 @@
 const solveSudoku = (board, row = 0, col = 0) => {
-
     function check(board, row, col, val) {
         row = row - row % 3, col = col - col % 3
         for (let x = 0; x < 9; x++) if (board[x][col] == val) return false;
