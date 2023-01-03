@@ -451,3 +451,20 @@ function findNumber() {
     return -1
 }
 console.log(findNumber())
+
+/* 24 Magic square
+A magic square is a grid of n by n size, each with a unique number, where each row, column, and diagonal
+sum to the same total. Given a square of length (and width) n, find the value in the center square.
+*/
+function magicSquare(length) {
+    let totalSum = 0, totalNumberOfSquares = length ^ 2
+    // Get total sum of all squares
+    for (let i = totalNumberOfSquares; i > 0; i--)
+        totalSum += i
+    // Get sum of a single row, column, or diagonal
+    const rowTotal = totalSum / length
+    // Get center value
+    const centerVal = rowTotal / length
+    
+    return centerVal
+}
