@@ -468,3 +468,60 @@ function magicSquare(length) {
     
     return centerVal
 }
+
+/* 25 Multiplicative Magic Square
+A Multiplicative Magic Square is a grid of length n times height n, where the product of each row and
+each diagonal row is the same.  It differs from a Magic Square that adds values in the grid, in that the numbers in the
+Multiplicative Magic square do not need to be consecutive.
+Given an additive Magic Square, change it's values so that it becomes a valid Multiplicative Magic Square.
+Hint: 2^6 = 2^3 * 2^2
+*/
+
+function multiplicativeMagicSquare(grid) {
+    for(let row=0; row<grid.length; row++) {
+        for (let col = 0; col < grid[row].length; col++) {
+            grid[row][col] = 2 ^ grid[row][col]
+        }
+    }
+}
+console.log(multiplicativeMagicSquare([
+  [3, 8, 1],
+  [2, 4, 6],
+  [7, 0, 5]
+]))
+
+/* 26 Pay coins
+Two people live in a country where there are two types of coins. 
+One type coin is worth 5 units and the other is worth 7 units.
+They each have an unlimited number of each type of coin.  Write a function that
+returns a boolean true/false, if its possible for one person to pay the other n units,
+using any number of exchange of coins between the two people.
+*/
+function canPay(n) {
+    // Greatest common denominator of 5 and 7 is 1
+    const ableToPay = (n % 1)
+    return (ableToPay === 0)
+}
+
+/* 27
+Find a number
+Write a function to find the smallest 5-digit integer n, such that n^2 starts with 27182.
+If one does not exist, return -1
+*/
+function findNumber() {
+
+    let sqr_root = Math.sqrt(27182)
+    while(sqr_root < 9999)
+        sqr_root *= 10
+    const rounded_up = Math.ceil(sqr_root)
+
+    // Check value
+    const val = rounded_up ^ 2
+    if(val.toString().startsWith('27182'))
+        return val
+    else
+        return -1
+}
+
+/* 28
+*/
