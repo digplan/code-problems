@@ -436,3 +436,18 @@ function profit(prices) {
     }
     return profit
 }
+
+/* 23 Find a number 
+  Write a function that finds a two digit number, such that when the first digit is removed, becomes seven times smaller.
+  Return -1 if no such number exists.
+*/
+function findNumber() {
+    // Two digit numbers divisible by 7
+    for(let i=14; i<100; i += 7) {
+        const digit = i % 10
+        if((i / 7) === digit)
+            return i
+    }
+    return -1
+}
+console.log(findNumber())
