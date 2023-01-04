@@ -536,4 +536,19 @@ function findIndex(arr) {
 }
 console.log(findIndex([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]))
 
-/* 29 
+/* 29 Decimal to binary
+*/
+function decToBinary(n) {
+    const bstr = ''
+    while(n > 0) {
+        if (n % 2 == 1) {
+            bstr = "1" + bstr
+        } else {
+            bstr = "0" + bstr
+        }
+        // divide number by 2
+        n = Math.floor(n / 2);
+    }
+}
+
+/* 30 
