@@ -523,5 +523,17 @@ function findNumber() {
         return -1
 }
 
-/* 28
+/* 28 Find index
+You are given the following array [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]
+Without iterating through the array, write a function that finds the index of the array that contains the first 1.
 */
+function findIndex(arr) {
+    let pos = Math.ceil(arr.length / 2)
+    if(arr[pos] === 0 && arr[i+1] === 1)
+        return pos
+    else
+        return findIndex(arr.splice(pos))
+}
+console.log(findIndex([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1]))
+
+/* 29 
