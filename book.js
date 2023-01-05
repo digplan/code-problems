@@ -551,4 +551,17 @@ function decToBinary(n) {
     }
 }
 
-/* 30 
+/* 30 Sequence Sum
+Write a function that takes a start integer >= 0, and end Integer, and calculates the sum of the sequence of
+integers in between.  For instance, given 5 and 10 = 5+6+7+8+9+10 = 45.
+*/
+function sequenceSum(start, end) {
+    // Add the first and last numbers
+    let sum = start + end
+    // Multiply by number of elements
+    sum *= (end - start + 1)
+    // Divide by 2
+    return sum / 2
+}
+
+/* 31 
