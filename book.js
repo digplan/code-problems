@@ -38,11 +38,11 @@ console.log(sum)
 */
 function InsertionSort(arr, k) {
     // Iterate each element in array, starting at 1
-    for (let i = 1; i < arr.length; i++) {
+    for (const i in arr) {
         // Iterate backward from i
-        for (let j = i; j > 0; j--) {
+        for (let j = Number(i + 1); j > 0; j--) {
             // If value of j is less than preeceding value, swap the values
-            if (arr[j] < arr[j - 1])
+            if (arr[j] < arr[j-1])
                 [arr[j], arr[j - 1]] = [arr[j - 1], arr[j]]
         }
     }
@@ -94,7 +94,7 @@ console.log(bubbleSort([1, 2, 0, 0, 2, 2, 1, 1, 2]))
 function selectionSort (arr) {
 
    //Loop till the second last element
-   for(let i = 0; i < arr.length - 1; i++){
+   for(let i in arr){
 
       //Loop after the i till the last element
       for(let j = i + 1; j < arr.length; j++){
@@ -211,7 +211,7 @@ console.log(reverseInteger(1234567))
 const rotateArray = (nums, k) => {
     let res = []
     k = k % nums.length
-    for (let i = 0; i < nums.length; i++) {
+    for (i in nums) {
         const n = i < k ? i + nums.length : i
         res[n - k] = nums[i]
     }
@@ -260,7 +260,7 @@ Implement a regular expression function that matches * and .
 */
 function regex (s, p) {
     let si = 0
-    for(let i=0; i<p.length; i++) {
+    for(i in p) {
         if(p[i] === '*') {
             let la = p[i+1]
             while(s[si] && (s[si] !== la))
@@ -286,7 +286,7 @@ function isPalindrome(str) {
     , secondHalf = str.slice(mid)
  
     // Compare the characters in each half
-    for (let i = 0; i < mid; i++) {
+    for (i in mid) {
         if (firstHalf[i] !== secondHalf[secondHalf.length - 1 - i])
             return false
     }
