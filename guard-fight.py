@@ -1,6 +1,5 @@
 from math import ceil, sqrt, atan2
 
-
 def solution(dimensions, your_position, guard_position, distance):
     locations = reflection_map(
         dimensions, your_position, guard_position, distance)

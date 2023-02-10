@@ -1,6 +1,5 @@
 from math import sqrt
 
-
 def distance_between(xy, ab):
     return sqrt((xy[0] - ab[0])**2 + (xy[1] - ab[1])**2)
 

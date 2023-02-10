@@ -354,7 +354,7 @@ Two pointers approach
 */
 function threeSum(nums) {
     // Sort the array
-    nums.sort((a, b) => a - b)
+    nums.sort()
     const result = []
 
     // Iterate
@@ -556,12 +556,71 @@ Write a function that takes a start integer >= 0, and end Integer, and calculate
 integers in between.  For instance, given 5 and 10 = 5+6+7+8+9+10 = 45.
 */
 function sequenceSum(start, end) {
-    // Add the first and last numbers
-    let sum = start + end
-    // Multiply by number of elements
-    sum *= (end - start + 1)
-    // Divide by 2
-    return sum / 2
+    // S = n(first + last) / 2
+    n = end - start + 1
+    return n * (start + end) / 2
 }
 
-/* 31 
+/* 31 Binary search */
+const binary_search = (arr, v, start = 0, end = arr.length) => {
+    // TODO !!!!!!!!
+    var i = Math.floor(arr.length / 2)
+    if(arr[i] === v) return i
+    return arr[i] < v ? binary_search(arr, v, start, end)
+}
+
+const ret = binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 10)
+console.log(ret)
+
+generateParenthesis = (n) => {
+    result = []
+    generate = (left, right, str) => {
+        if (left === n && right === n)
+            result.push(str)
+        if (left < n)
+            generate(left + 1, right, str + '(')
+        if (right < left)
+            generate(left, right + 1, str + ')')
+    }
+    generate(0, 0, '')
+    return result
+}
+
+console.log(generateParenthesis(6))
+
+firstMissingPositive = function (nums) {
+    // First, we need to understand that the first missing positive number is less than or equal to n (length of array) except for one case. The explanation is in the above.
+    // We will position every positive integer in the array at its corresponding index
+    // ex) 1 at index 0, 2 at index 1, 3 at index 2
+    // In this way, the array can position all integers that are less than or equal to n at their corresponding indices without changing the size of given array.
+    // Therefore, we can find the first missing positive integer by scanning through the array.
+
+    for (i in nums) {
+        idx = nums[i] - 1
+        if (i == idx || nums[i] == nums[idx]) continue // already positioned or nums[i] is a duplicate
+        if (idx >= 0 && idx <= nums.length - 1) {
+            [nums[i], nums[idx]] = [nums[idx], nums[i]]
+            i-- // check the swapped number
+        }
+    }
+
+    for (let i = 0; i < nums.length; i++) {
+        if (i + 1 == nums[i]) continue
+        else return i + 1 // the next positive number which is i+1 doesn't exist in the array
+    }
+
+    return nums.length + 1 // the array is [1,2,...,n]
+    // Time Complexity: O(n)
+    // Space Complexity: O(1)
+}
+console.log(firstMissingPositive([3, 4, -1, 1]))  // 2
+
+const longPressedName = (name, typed) => {
+    let i = 0
+    for (j in typed) {
+        if (name[i] === typed[j]) i++
+    }
+    return i === name.length
+}
+console.log(longPressedName('alex', 'aaleex')) // true
+console.log(longPressedName('saeed', 'ssaaedd')) // false

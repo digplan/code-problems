@@ -3,7 +3,7 @@ const mergeKLists = (lists) => {
     for (const list of lists)
         for (const v of list)
             arr.push(v)
-    arr.sort((a, b) => a - b)
+    arr.sort()
     return arr.reduceRight((next, value) => {
         {value, next}
     }, null)
