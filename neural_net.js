@@ -1,8 +1,9 @@
 relu = (x) => Math.max(0, x)
-sigmoid = (x) => 1/(1+Math.exp(-x))
-softmax = (arr) => (index) => Math.exp(arr[index]) / arr.map(y => Math.exp(y)).reduce((a, b) => a + b);
+sigmoid = (x) => 1 / (1 + (Math.E ** -x))
 
-function softmax(arr) {
+softmax = (arr) => arr.map((index,value)=>Math.exp(arr[index]) / arr.map(y => Math.exp(y)).reduce((a, b) => a + b));
+
+function softmaxb(arr) {
     return arr.map(function(value,index) { 
       return Math.exp(value) / arr.map( function(y /*value*/){ return Math.exp(y) } ).reduce( function(a,b){ return a+b })
     })
@@ -16,7 +17,5 @@ example1=[ 0.9780449271202087,
   0.0006004497990943491,
   0.0004827099328394979,
   0.0001868270628619939 ]
-softmax1=softmax(example1)
 
-
-console.log(sigmoid(2))
+console.log(softmax(example1))
