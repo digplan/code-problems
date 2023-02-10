@@ -624,3 +624,78 @@ const longPressedName = (name, typed) => {
 }
 console.log(longPressedName('alex', 'aaleex')) // true
 console.log(longPressedName('saeed', 'ssaaedd')) // false
+
+function ListNode(val) {
+    this.val = val
+    this.next = null
+}
+
+var reverseKGroup = function (head, k) {
+    if (!head || k < 2) return head
+    let count = 0, now = head, last = head, tmp = null
+
+    while (now && count < k) {
+        now = now.next
+        count++
+    }
+
+    if (count === k) {
+        now = reverseKGroup(now, k)
+        while (count-- > 0) {
+            tmp = last.next
+            last.next = now
+            now = last
+            last = tmp
+        }
+        last = now
+    }
+
+    return last
+}
+
+const head = new ListNode(1)
+const two = head.next = new ListNode(2)
+const three = two.next = new ListNode(3)
+const four = three.next = new ListNode(4)
+const five = four.next = new ListNode(5)
+
+const k = 3
+console.log(JSON.stringify(reverseKGroup(head, k), null, 2))
+
+const threeSumClosest = (nums, target) => {
+    nums.sort((a, b) => a - b)
+    let res = Infinity
+    for (i in nums) {
+        let left = i + 1, right = nums.length - 1
+        while (left < right) {
+            let sum = nums[i] + nums[left] + nums[right]
+            if (~~(target - sum) < ~~(target - res)) res = sum
+            if (sum < target) left++
+            else right--
+        }
+    }
+    return res
+}
+console.log(threeSumClosest([-1, 2, 1, -4], 1))
+
+const trappingRainWater = (height) => {
+    let leftMax = 0, rightMax = 0, left = 0, right = height.length - 1, ans = 0
+    while (left < right) {
+        leftMax = Math.max(leftMax, height[left])
+        rightMax = Math.max(rightMax, height[right])
+        ans += (height[left] < height[right]) ? leftMax - height[left++] : rightMax - height[right--]
+    }
+    return ans
+}
+
+console.log(trappingRainWater([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]))
+
+const factorialize = (n) => {
+    if (n < 0) return -1
+    if (n === 0 || n === 1) return 1
+    return n * factorialize(n - 1)
+}
+const uniquePaths = (m, n) => {
+    return factorialize(m + n - 2) / (factorialize(m - 1) * factorialize(n - 1))
+}
+console.log(uniquePaths(3, 7))
