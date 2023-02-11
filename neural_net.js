@@ -10,14 +10,14 @@ sliceTrainTest = (m, size = .8) => {
   return [m.slice(0, d), m.slice(d)]
 } // const [train, test] = sliceTrainTest(matrix)
 
-forward_prop = (source, weight, bias, target_size) => {
+forward_prop = (source, weight, bias, target_size, activation_fn) => {
    const target = new Array(target_size).fill(0)
    for(i in target) {
      for(c in source)
        target[i] += (source[c] * weight[c]) + bias
      
      // Activation function
-     target[i] = relu(target[i])
+     target[i] = activation_fn(target[i])
    }
    return target
 }
