@@ -9,17 +9,26 @@ sliceTrainTest = (m, size = .8) => {
   const d = ~~(m.length * size)
   return [m.slice(0, d), m.slice(d)]
 } // const [train, test] = sliceTrainTest(matrix)
+errors = (predictions, actuals) => predictions.map((p, i) => .5 * (p-actuals[i]) ** 2)
 
-forward_prop = (source, weight, bias, target_size, activation_fn) => {
-   const target = new Array(target_size).fill(0)
+// source = [2, 3]; weights = [[.11, .21], [.12, .08]]; bias = 0
+// target = [.85, .48]
+forward_prop = (source, weights, bias, activation_fn) => {
+   const target = new Array(weights.length).fill(0)
    for(i in target) {
      for(c in source)
-       target[i] += (source[c] * weight[c]) + bias
+       target[i] += (source[c] * weights[c, i]) + bias
      
      // Activation function
      target[i] = activation_fn(target[i])
    }
    return target
+}
+
+// predictions = [.191], actuals = [1], weights = [.14, 15], learning_rate = .05, output = [.17, .17]
+back_prop = (predictions, actuals, learning_rate) => {
+  const deltas = predictions.map((p, i) => (p - actuals[i]) * learning_rate)
+  return weights.map((w, i) => w - deltas[i])
 }
 
 example1=[ 0.9780449271202087,
