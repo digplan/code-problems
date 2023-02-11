@@ -4,6 +4,23 @@ softmax = (arr) => {
   const d = arr.map(Math.exp).reduce((a, b) => a + b)
   return arr.map(y => Math.exp(y) / d)
 }
+transpose = (m) => m[0].map((x,i) => m.map(x => x[i]))
+sliceTrainTest = (m, size = .8) => {
+  const d = ~~(m.length * size)
+  return [m.slice(0, d), m.slice(d)]
+} // const [train, test] = sliceTrainTest(matrix)
+
+forward_prop = (source, weight, bias, target_size) => {
+   const target = new Array(target_size).fill(0)
+   for(i in target) {
+     for(c in source)
+       target[i] += (source[c] * weight[c]) + bias
+     
+     // Activation function
+     target[i] = relu(target[i])
+   }
+   return target
+}
 
 example1=[ 0.9780449271202087,
   0.01590355671942234,
