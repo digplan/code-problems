@@ -699,32 +699,3 @@ const uniquePaths = (m, n) => {
     return factorialize(m + n - 2) / (factorialize(m - 1) * factorialize(n - 1))
 }
 console.log(uniquePaths(3, 7))
-
-function shortestPath() {
-    var graph = [
-        ['A', 'B', 'C', 'F', 'J'],
-        ['A', 'D', 'E', 'H', 'K'],
-        ['B', 'F', 'C', 'I', 'L'],
-        ['D', 'E', 'G', 'F', 'M']
-    ]
-
-    const path = []
-    function dfs(start, end) {
-        if (start === end) {
-            path.push(start)
-            return
-        }
-        let found = false
-        for (let i = 0; i < graph[start].length; i++) {
-            let cell = graph[start][i]
-            if (!found &&!path.some(cell2 => cell2 === cell)) {
-                path.push(cell)
-                found = true
-            }
-            dfs(cell, end)
-            if (found) break
-        }
-    }
-    dfs('A', 'M')
-
-}
