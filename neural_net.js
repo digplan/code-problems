@@ -1,14 +1,9 @@
 relu = (x) => Math.max(0, x)
 sigmoid = (x) => 1 / (1 + (Math.E ** -x))
-softmax = (arr) => {
-  const d = arr.map(Math.exp).reduce((a, b) => a + b)
-  return arr.map(y => Math.exp(y) / d)
-}
+softmax = (x, i, ar) => Math.exp(x)/ar.map(Math.exp).reduce((a, b) => a + b)
+
 transpose = (m) => m[0].map((x,i) => m.map(x => x[i]))
-sliceTrainTest = (m, size = .8) => {
-  const d = ~~(m.length * size)
-  return [m.slice(0, d), m.slice(d)]
-} // const [train, test] = sliceTrainTest(matrix)
+[test, train] = [data.splice(data.length * .8), data]
 errors = (predictions, actuals) => predictions.map((p, i) => .5 * (p-actuals[i]) ** 2)
 
 // source = [2, 3]; weights = [[.11, .21], [.12, .08]]; bias = 0
