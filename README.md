@@ -13,4 +13,14 @@ for(i=0; i<nums.length/2; i++)
     }
     return -1
 }
+
+// Reverse linked list
+let prev = null;
+while(head) {
+  let saveNext = head.next
+  head.next = prev
+  prev = head     
+  head = saveNext   
+}
+return prev
 ````
