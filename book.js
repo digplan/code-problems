@@ -278,20 +278,8 @@ console.log(regex('aab', 'c*a*b'))
 
 /* 16 isPalindrome */
 function isPalindrome(str) {
-    // Calculate the middle index of the string
-    const mid = Math.floor(str.length / 2)
-
-    // Split the string into two halves
-    const firstHalf = str.slice(0, mid)
-    , secondHalf = str.slice(mid)
- 
-    // Compare the characters in each half
-    for (i in mid) {
-        if (firstHalf[i] !== secondHalf[secondHalf.length - 1 - i])
-            return false
-    }
-
-    return true
+    if(str.length < 2) return true
+    return (str.at(0) == str.at(-1)) && isPalindrome(str.slice(1, -1))
 }
 
 /* 17 Search - Find shortest path BFS DFS */
@@ -325,16 +313,12 @@ console.log(shortestPath([
 
 /* 18 Convert Integer to Roman numeral */
 function integerToRoman(n) {
-    const ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
-    const tens = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
-    const hundreds = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
-    const thousands = ["", "M", "MM", "MMM"]
+    const o = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+    const t = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    const h = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
 
-    let solution = String(thousands[n / 1000])
-    solution += hundreds[(n % 1000) / 100] 
-    solution += tens[(n % 100) / 10]
-    solution += ones[n % 10]
-    return solution
+    // ~~ Double bitwise not, alternative to Math.abs()
+    return 'M'.repeat(n/1000) + h[~~(n/100)] + t[~~(n/10)] + o[~~n]
 }
 
 /* 19 Convert Roman to Integer */
@@ -561,12 +545,25 @@ function sequenceSum(start, end) {
     return n * (start + end) / 2
 }
 
-/* 31 Binary search */
+/* 
+31 Binary search 
+*/
 const binary_search = (arr, v, start = 0, end = arr.length) => {
     // TODO !!!!!!!!
     var i = Math.floor(arr.length / 2)
     if(arr[i] === v) return i
     return arr[i] < v ? binary_search(arr, v, start, end)
+}
+
+/* 
+32 Is Perfect Number 
+*/
+const isPerfect = (n) => {
+    let sum = 0;
+    for(let i = 0; i < n; i++) {
+        if(n % i == 0) sum += i
+    }
+    return sum == n
 }
 
 const ret = binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], 10)
